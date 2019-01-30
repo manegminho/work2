@@ -4,9 +4,12 @@
   <head>
 
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
     <title>Coming Soon - Start Bootstrap Theme</title>
 
@@ -20,7 +23,9 @@
 
     <!-- Custom styles for this template -->
     <link href="css/coming-soon.min.css" rel="stylesheet">
-    <link href="css.css" rel="stylesheet">
+    <link href="css.css?vaer=1" rel="stylesheet">
+
+    
   </head>
 
   <body>
@@ -89,42 +94,110 @@
 
     <!-- Custom scripts for this template -->
     <script src="js/coming-soon.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
     <script>
-
-          $(window).ready(function()  {
+        var Stjson;
+        $(window).ready(function()  {
+              $("#app").append('<div class = "dan"></div>');
+              for(var j=1 ; j<14;j++)
+              {
                 $("#app").append('<div class = "dan"></div>');
-                for(var j=1 ; j<14;j++)
-                {
-                  $("#app").append('<div class = "dan"></div>');
-                }
-           });
+              }
+         });
 
-      function googoodan()
+    function googoodan()
+    {
+      var nResult;
+      var stMsg;
+      
+     // var nNum =document.getElementById("Dan").nNum;
+      var nNum = $('input[type="email"').val();
+
+
+      $("#app").append('<div class = "dan"></div>');
+      $(".dan").eq(0).html("<br>");
+      $(".dan").eq(1).html("<br>");
+      $(".dan").eq(2).html("<br>");
+      $(".dan").eq(3).html("<br>");
+      $(".dan").eq(4).html(nNum + "단 출력");
+
+      var strMsg;
+      for(var i =0 ; i<9;i++)
       {
-        var nResult;
-        var stMsg;
-       // var nNum =document.getElementById("Dan").nNum;
-        var nNum = $('input[type="email"').val();
+        strMsg= resultData(nNum,i);
+        //console.log( nNum +' - '+i+ ' - '+  strMsg);
 
-
-        $("#app").append('<div class = "dan"></div>');
-        $(".dan").eq(0).html("<br>");
-        $(".dan").eq(1).html("<br>");
-        $(".dan").eq(2).html("<br>");
-        $(".dan").eq(3).html("<br>");
-        $(".dan").eq(4).html(nNum + "단 출력");
-        
-        for(var j=0;j<10;j++)
-        {  
-          nResult = nNum*(j+1);
-          stMsg = nNum + " X" + (j+1) + "=" + nResult +"<br>";
-          //document.write(stMsg);
-          $(".dan").eq(j+5).html(stMsg);
-         // $("overlay").eq(j).css("background-color", "red");
-        }
+        $(".dan").eq(i+5).html(strMsg);
       }
-    </script>
+      
+    }
+    function resultData(nNum , nCount)
+    {
+      var strMsg;
+      if(nNum == 1)
+      {
+        strMsg= Stjson[nCount].dan1;
+      }
+      else if(nNum == 2)
+      {
+        strMsg= Stjson[nCount].dan2;
+      }
+      else if(nNum == 3)
+      {
+        strMsg= Stjson[nCount].dan3;
+      }
+      else if(nNum == 4)
+      {
+        strMsg= Stjson[nCount].dan4;
+      }
+      else if(nNum == 5)
+      {
+        strMsg= Stjson[nCount].dan5;
+      }
+      else if(nNum == 6)
+      {
+        strMsg= Stjson[nCount].dan6;
+      }
+      else if(nNum == 7)
+      {
+        strMsg= Stjson[nCount].dan7;
+      }
+      else if(nNum == 8)
+      {
+        strMsg= Stjson[nCount].dan8;
+      }
+      else
+      {
+        strMsg= Stjson[nCount].dan9;
+      }
+      console.log( nNum + ' -- '+  strMsg);
+      return strMsg;
+    }
+  
+
+  function setHtml(json)
+  {
+
+      Stjson = json;
+  }
+  document.addEventListener("DOMContentLoaded", function(){
+      var url= "/homework2/data.txt"
+
+      var xmlhttp = new XMLHttpRequest();
+
+      xmlhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+              var myArr = JSON.parse(this.responseText);
+              setHtml(myArr);
+          }
+      };
+
+      xmlhttp.open("GET", url, true);
+      xmlhttp.send();
+
+  });
+  </script>
 
   </body>
 
